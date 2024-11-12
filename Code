@@ -1,0 +1,39 @@
+#include <DHT.h>
+#include <WiFi.h>
+#include <ThingsBoard.h>
+#include <PubSubClient.h>
+#include <ArduinoJson.h>
+#define DHTPIN 5
+#define DHTTYPE DHT11
+const int trigPin = 18;
+const int echoPin = 19;
+long duration;
+int distance;
+DHT dht(DHTPIN, DHTTYPE);
+WiFiClient wifiClient;
+ThingsBoard tb(wifiClient);
+const char* ssid = "V2037";
+const char* password = "123456780";
+const char* tbHost = "demo.thingsboard.io";
+const char* tbToken = "j2A5RpJUO15pu1VhsVXW";
+void setup()
+ {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(115200);
+  dht.begin();
+  Serial.println("Connecting to Wi-Fi...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to Wi-Fi...");
+  }
+  Serial.println("Connected to Wi-Fi");
+  Serial.println("Connecting to ThingsBoard...");
+  if (!tb.connect(tbHost, tbToken))
+ {
+    Serial.println("Failed to connect to ThingsBoard");
+    while (1);
+  }
+  Serial.println("Connected to ThingsBoard");
+}
