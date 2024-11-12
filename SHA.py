@@ -1,10 +1,10 @@
-#include <DHT.h>
-#include <WiFi.h>
-#include <ThingsBoard.h>
-#include <PubSubClient.h>
-#include <ArduinoJson.h>
-#define DHTPIN 5
-#define DHTTYPE DHT11
+include <DHT.h>
+include <WiFi.h>
+include <ThingsBoard.h>
+include <PubSubClient.h>
+include <ArduinoJson.h>
+define DHTPIN 5
+define DHTTYPE DHT11
 const int trigPin = 18;
 const int echoPin = 19;
 long duration;
